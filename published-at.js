@@ -23,30 +23,46 @@ function formatPublishedAt(date) {
 
     var translations = {
         fr: {
+            second: ' seconde',
             seconds: ' secondes',
+            minute: ' minute',
             minutes: ' minutes',
+            hour: ' heure',
             hours: ' heures',
+            day: ' jour',
             days: ' jours',
             ago: 'il y a '
         },
         en: {
+            second: ' second',
             seconds: ' seconds',
+            minute: ' minute',
             minutes: ' minutes',
+            hour: ' hour',
             hours: ' hours',
+            day: ' day',
             days: ' days',
             ago: ''
         },
         it: {
+            second: ' secondo',
             seconds: ' secondi',
+            minute: ' minuto',
             minutes: ' minuti',
+            hour: ' ora',
             hours: ' ore',
+            day: ' giorno',
             days: ' giorni',
             ago: ''
         },
         es: {
+            second: ' segundo',
             seconds: ' segundos',
+            minute: ' minuto',
             minutes: ' minutos',
+            hour: ' hora',
             hours: ' horas',
+            day: ' día',
             days: ' días',
             ago: 'Hace '
         }
@@ -55,13 +71,17 @@ function formatPublishedAt(date) {
     var lang = translations[userLang.split('-')[0]] || translations['en'];
 
     if (diff < 60000) {
-        formattedDate = lang.ago + Math.floor(diff / 1000) + lang.seconds;
+        var seconds = Math.floor(diff / 1000);
+        formattedDate = lang.ago + seconds + (seconds === 1 ? lang.second : lang.seconds);
     } else if (diff < 3600000) {
-        formattedDate = lang.ago + Math.floor(diff / 60000) + lang.minutes;
+        var minutes = Math.floor(diff / 60000);
+        formattedDate = lang.ago + minutes + (minutes === 1 ? lang.minute : lang.minutes);
     } else if (diff < 86400000) {
-        formattedDate = lang.ago + Math.floor(diff / 3600000) + lang.hours;
+        var hours = Math.floor(diff / 3600000);
+        formattedDate = lang.ago + hours + (hours === 1 ? lang.hour : lang.hours);
     } else {
-        formattedDate = lang.ago + Math.floor(diff / 86400000) + lang.days;
+        var days = Math.floor(diff / 86400000);
+        formattedDate = lang.ago + days + (days === 1 ? lang.day : lang.days);
     }
 
     return formattedDate;
